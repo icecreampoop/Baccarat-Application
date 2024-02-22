@@ -1,55 +1,31 @@
 package sg.edu.nus.iss.baccarat.server;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class BaccaratEngine {
-    HashMap<String, Float> deckOfCards = new HashMap<>();
+    ArrayList<String> deckOfCards = new ArrayList<>();
     StringBuilder tempDB;
+    int numberOfDecks;
 
     public BaccaratEngine(int numberOfDecks) {
-        int deckCount = 1;
+        this.numberOfDecks = numberOfDecks;
+        topUpCardsToDeck();
+    }
 
+    public void clearAllCardsInDeck() {
+        ServerFileIOHandler.writeToDB(new ArrayList<>());
+    }
+
+    public void topUpCardsToDeck() {
         for (int x = 0; x < numberOfDecks; x++) {
-            
-
             for (int y = 1; y <= 13; y++) {
-
                 for (int z = 1; z <= 4; z++) {
-                    deckOfCards.put(String.format("Deck %d: %d.%d", deckCount,y,z), Float.parseFloat(String.format("%d.%d",y,z)));
+                    deckOfCards.add(String.format("%d.%d",y,z));
                 }
             }
-            deckCount++;
         }
-
-        try {
-            Path path = Paths.get("src\\sg\\edu\\n" + //
-                                "us\\iss\\baccarat\\server\\cards.db");
-            FileReader fileReader = new FileReader(path.toFile());
-            FileWriter fileWriter = new FileWriter(path.toFile());
-            String lines;
- 
-            try (BufferedReader dbReader = new BufferedReader(fileReader)) {
-                while ((lines = dbReader.readLine()) != null) {
-                    tempDB.append(lines).append(System.lineSeparator());
-                }
-            }
-
-            try (BufferedWriter dbWriter = new BufferedWriter(fileWriter)) {
-                for (String x : deckOfCards.keySet()) {
-                    dbWriter.write(deckOfCards.get(x).toString());
-                    dbWriter.newLine();
-                }
-            }
-
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
+        Collections.shuffle(deckOfCards);
+        ServerFileIOHandler.writeToDB(deckOfCards);
     }
 }
