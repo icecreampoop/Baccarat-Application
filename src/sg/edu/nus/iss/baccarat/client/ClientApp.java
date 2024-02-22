@@ -9,7 +9,7 @@ public class ClientApp {
         Integer port = Integer.parseInt(stringSplit[1]);
         
         try (Socket socket = new Socket(address, port)) {
-
+            
         }
     }
 }

@@ -10,8 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ServerFileIOHandler {
-    static final Path path = Paths.get("src\\sg\\edu\\n" + //
-            "us\\iss\\baccarat\\server\\cards.db");
+    static final Path path = Paths.get("src\\sg\\edu\\nus\\iss\\baccarat\\server\\cards.db");
     static StringBuilder tempDB;
 
     public static synchronized String readFromDB() {
