@@ -14,13 +14,15 @@ public class BaccaratEngine {
     StringBuilder tempDB;
 
     public BaccaratEngine(int numberOfDecks) {
+        int deckCount = 1;
+
         for (int x = 0; x < numberOfDecks; x++) {
-            int deckCount = 1;
+            
 
             for (int y = 1; y <= 13; y++) {
 
                 for (int z = 1; z <= 4; z++) {
-                    deckOfCards.put("deck" + deckCount + ":" + y + "." + z, Float.parseFloat(y + "." + z));
+                    deckOfCards.put(String.format("Deck %d: %d.%d", deckCount,y,z), Float.parseFloat(String.format("%d.%d",y,z)));
                 }
             }
             deckCount++;
