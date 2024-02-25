@@ -35,10 +35,8 @@ public class ServerConnectionHandler implements Runnable {
                 //user log in
                 if (inputStrings[0].equals("login")) {
                     userName = inputStrings[1];
-                    printWriter.printf("Welcome %s", userName);
-                    System.out.println("sent welcome msg to client");
-                    printWriter.printf("Your current account value is : %s", BaccaratEngine.userLogIn(userName, Integer.parseInt(inputStrings[2])));
-                    System.out.println("created client db and sent acc value to client");
+                    printWriter.println(2);
+                    printWriter.printf("Welcome %s!\nYour current account value is : $%s\n", userName, BaccaratEngine.userLogIn(userName, Integer.parseInt(inputStrings[2])));
                 }
 
             } catch (IOException io) {

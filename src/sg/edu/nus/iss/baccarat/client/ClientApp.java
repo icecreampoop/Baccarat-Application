@@ -1,4 +1,4 @@
-package  sg.edu.nus.iss.baccarat.client;
+package sg.edu.nus.iss.baccarat.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,23 +14,27 @@ public class ClientApp {
         Integer port = Integer.parseInt(stringSplit[1]);
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        
+        int serverInputLength;
+
         try (Socket socket = new Socket(address, port)) {
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.print("Please log in to your account: ");
-            userInput = scanner.nextLine().toLowerCase().trim();
-            //while (!(userInput = scanner.nextLine().toLowerCase().trim()).equals("quit")) {
+
+            // this structure of code is more efficient compared to constantly creating a new socket HOWEVER this looks kinda noobish
+            while (!(userInput = scanner.nextLine().toLowerCase().trim()).equals("quit")) {
                 printWriter.println(userInput);
-                System.out.println(bufferedReader.readLine());
-            //}
+                serverInputLength = Integer.parseInt(bufferedReader.readLine());
+                for (int x = 0; x < serverInputLength; x++) {
+                    System.out.println(bufferedReader.readLine());
+                }
+            }
 
         } catch (IOException io) {
             io.printStackTrace();
         }
 
-
-        //closing resources
+        // closing resources
         scanner.close();
     }
 }

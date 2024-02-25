@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ServerFileIOHandler {
     static final Path path = Paths.get("src\\sg\\edu\\nus\\iss\\baccarat\\server\\cards.db");
-    static StringBuilder tempDB;
+    static StringBuilder tempDB = new StringBuilder();
 
     public static synchronized String readFromDB() {
         String lines;
