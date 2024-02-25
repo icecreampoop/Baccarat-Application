@@ -14,9 +14,9 @@ public class ServerFileIOHandler {
     static StringBuilder tempDB;
 
     public static synchronized String readFromDB() {
+        String lines;
         try {
             FileReader fileReader = new FileReader(path.toFile());
-            String lines;
 
             try (BufferedReader dbReader = new BufferedReader(fileReader)) {
                 while ((lines = dbReader.readLine()) != null) {
@@ -27,7 +27,42 @@ public class ServerFileIOHandler {
         } catch (IOException io) {
             io.printStackTrace();
         }
-        return tempDB.toString();
+
+        lines = tempDB.toString();
+        tempDB.setLength(0);
+        return lines;
+    }
+
+    public static synchronized String readFromUserAccount(String userName) {
+        String lines;
+        try {
+            FileReader fileReader = new FileReader(Paths.get("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db").toFile());
+            try (BufferedReader userReader = new BufferedReader(fileReader)) {
+                while ((lines = userReader.readLine()) != null) {
+                    tempDB.append(lines).append(System.lineSeparator());
+                }
+            }
+
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        lines = tempDB.toString();
+        tempDB.setLength(0);
+        return lines;
+    }
+
+    public static synchronized void writeToUserAccount(String userName, int accountValue) {
+        try {
+            FileWriter fileWriter = new FileWriter(Paths.get("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db").toFile());
+
+            try (BufferedWriter userWriter = new BufferedWriter(fileWriter)) {
+                userWriter.write(Integer.toString(accountValue));
+                userWriter.flush();
+            }
+
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
     public static synchronized void writeToDB(ArrayList<String> dbArrayList) {

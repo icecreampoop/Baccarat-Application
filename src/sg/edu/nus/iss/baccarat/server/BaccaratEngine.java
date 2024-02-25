@@ -32,14 +32,26 @@ public class BaccaratEngine {
         ServerFileIOHandler.writeToDB(deckOfCards);
     }
 
-    public static synchronized void userLogIn(String userName) {
-        if (!Files.exists(Path.of(userName))) {
+    public static synchronized String userLogIn(String userName) {
+        if (!Files.exists(Path.of("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db"))) {
             try {
                 Files.createFile(Path.of("src\\sg\\edu\\nus\\iss\\baccarat\\server", userName + ".db"));
             } catch (IOException io) {
                 io.printStackTrace();
             }
         }
+        return ServerFileIOHandler.readFromUserAccount(userName);
+    }
 
+    public static synchronized String userLogIn(String userName, int topUpAccountValue) {
+        if (!Files.exists(Path.of("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db"))) {
+            try {
+                Files.createFile(Path.of("src\\sg\\edu\\nus\\iss\\baccarat\\server", userName + ".db"));
+            } catch (IOException io) {
+                io.printStackTrace();
+            }
+        }
+        ServerFileIOHandler.writeToUserAccount(userName, topUpAccountValue);
+        return ServerFileIOHandler.readFromUserAccount(userName);
     }
 }

@@ -19,7 +19,7 @@ public class ServerApp {
 
         //setting up server socket
         try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]))) {
-            System.out.printf("Server started on port %s", args[0]);
+            System.out.printf("Server started on port %s\n", args[0]);
 
             while (true) {
                 Socket clientConnectionSocket = serverSocket.accept();
