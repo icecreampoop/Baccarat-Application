@@ -51,12 +51,12 @@ public class ServerFileIOHandler {
         return lines;
     }
 
-    public static synchronized void writeToUserAccount(String userName, int accountValue) {
+    public static synchronized void writeToUserAccount(String userName, Long accountValue) {
         try {
             FileWriter fileWriter = new FileWriter(Paths.get("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db").toFile());
 
             try (BufferedWriter userWriter = new BufferedWriter(fileWriter)) {
-                userWriter.write(Integer.toString(accountValue));
+                userWriter.write(Long.toString(accountValue));
                 userWriter.flush();
             }
 

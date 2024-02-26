@@ -43,7 +43,7 @@ public class BaccaratEngine {
         return ServerFileIOHandler.readFromUserAccount(userName);
     }
 
-    public static synchronized String userLogIn(String userName, int topUpAccountValue) {
+    public static synchronized String userLogIn(String userName, Long topUpAccountValue) {
         if (!Files.exists(Path.of("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db"))) {
             try {
                 Files.createFile(Path.of("src\\sg\\edu\\nus\\iss\\baccarat\\server", userName + ".db"));
@@ -54,4 +54,13 @@ public class BaccaratEngine {
         ServerFileIOHandler.writeToUserAccount(userName, topUpAccountValue);
         return ServerFileIOHandler.readFromUserAccount(userName);
     }
+
+    public static synchronized String userPlaceBet(String betSize, String userName) {
+        ServerFileIOHandler.readFromUserAccount(userName);
+        return ""; //TODO place bet function
+    }
+
+    public static synchronized boolean numberRealisticCheck(String userNumber) {
+        return String.valueOf(Long.MAX_VALUE).length() >= (userNumber.length() + 1);
+    } 
 }

@@ -15,7 +15,7 @@ public class ServerApp {
 
         //setting up baccarat game
         BaccaratEngine baccaratEngine = new BaccaratEngine(Integer.parseInt(args[1]));
-        System.out.printf("Baccarat game using %s decks of cards\n", args[1]);
+        System.out.printf("Baccarat game using %s deck(s) of cards\n", args[1]);
 
         //setting up server socket
         try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]))) {
@@ -23,7 +23,7 @@ public class ServerApp {
 
             while (true) {
                 Socket clientConnectionSocket = serverSocket.accept();
-                threadService.submit(new ServerConnectionHandler(clientConnectionSocket));
+                threadService.submit(new ServerSessionHandler(clientConnectionSocket));
             }
         } catch (IOException io) {
             io.printStackTrace();
