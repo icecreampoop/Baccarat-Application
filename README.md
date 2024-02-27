@@ -1,18 +1,17 @@
-## Getting Started
+## Baccarat Game Simulator
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Created a simple application mimicking the game commonly played during chinese new year and in casinos. This is based on simplified rules found in casino!
 
-## Folder Structure
+## Game Commands & Game Set-Up
 
-The workspace contains two folders by default, where:
+args[] on client side should be localhost:12345       (noting that 12345 is port number)
+args[] on server side should be 12345 2               (noting that 12345 is port number and 2 is the number of decks to be used in the game)
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+login username 1234                                   (login is the keyword, username and 1234 can be switched for desired username and account value)
+login username                                        (login to existing user without changing account value)
+quit                                                  (end the session)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Key Practise Areas
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- Simple Concurrency (without dealing with race conditions)
+- Sockets & IO Handling (properly implementing reader .readLine() and **FULLY** understanding its behaviour and side effects when used on a stream)
