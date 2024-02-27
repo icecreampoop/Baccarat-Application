@@ -8,7 +8,6 @@ import java.util.Collections;
 
 public class BaccaratEngine {
     static ArrayList<String> deckOfCards = new ArrayList<>();
-    StringBuilder tempDB;
     static int numberOfDecks;
 
     public BaccaratEngine(int numberOfDecks) {
@@ -55,9 +54,12 @@ public class BaccaratEngine {
         return ServerFileIOHandler.readFromUserAccount(userName);
     }
 
-    public static synchronized String userPlaceBet(String betSize, String userName) {
-        ServerFileIOHandler.readFromUserAccount(userName);
-        return ""; //TODO place bet function
+    public static synchronized boolean userhasEnoughMoney(Long betSize, String userName) {
+        return Long.parseLong(ServerFileIOHandler.readFromUserAccount(userName)) >= betSize;
+    }
+
+    public static synchronized void gameOutcome() {
+        //TODO handle logic for gameplay, probs calling fileIOmethods innit
     }
 
     public static synchronized boolean numberRealisticCheck(String userNumber) {

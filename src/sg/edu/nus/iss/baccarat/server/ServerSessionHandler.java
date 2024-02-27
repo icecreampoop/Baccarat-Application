@@ -15,6 +15,9 @@ public class ServerSessionHandler implements Runnable {
     String[] inputStrings;
     boolean userHasLoggedIn = false;
     boolean userHasLoggedOff = false;
+    boolean userHasToPlaceBet = false;
+    Long[] tempMoneyHolder = new Long[2];   //index 0 being the current bet size, index 1 being the previous user value prior to bet
+    
 
     public ServerSessionHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -38,7 +41,7 @@ public class ServerSessionHandler implements Runnable {
                     if (userInput.equals("")) {
                         continue;
                     }
-                    
+
                 } else {
                     continue;
                 }
@@ -75,8 +78,27 @@ public class ServerSessionHandler implements Runnable {
 
                 // user place bet
                 if (inputStrings[0].equals("bet")) {
-                    BaccaratEngine.userPlaceBet(inputStrings[1], userName);
-                    continue;
+                    try {
+                        tempMoneyHolder[0] = Long.parseLong(inputStrings[1]);
+
+                        if (BaccaratEngine.userhasEnoughMoney(tempMoneyHolder[0], userName)) {
+                            tempMoneyHolder[1] = Long.parseLong(ServerFileIOHandler.readFromUserAccount(userName));
+                            userHasToPlaceBet = true;
+                        } else {
+                            printWriter.println("You do not have enough money for this");
+                        }
+                        continue;
+                    } catch (NumberFormatException nfe) {
+                    }
+
+                }
+
+                //after placing bet amount user HAS to indicate which side (player or banker)
+                if (userHasToPlaceBet) {
+                    //use tempMoneyHolder[], handle logic for winning in engine, call the static synchro methods here
+                    //TODO logic to deal which side?
+
+                    
                 }
 
                 printWriter.println("Please enter a valid input!");
