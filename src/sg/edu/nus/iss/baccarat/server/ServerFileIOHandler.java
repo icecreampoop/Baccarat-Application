@@ -20,7 +20,7 @@ public class ServerFileIOHandler {
 
             try (BufferedReader dbReader = new BufferedReader(fileReader)) {
                 while ((lines = dbReader.readLine()) != null) {
-                    tempDB.append(lines).append(System.lineSeparator());
+                    tempDB.append(lines).append(" ");
                 }
             }
 
@@ -39,7 +39,7 @@ public class ServerFileIOHandler {
             FileReader fileReader = new FileReader(Paths.get("src\\sg\\edu\\nus\\iss\\baccarat\\server\\" + userName + ".db").toFile());
             try (BufferedReader userReader = new BufferedReader(fileReader)) {
                 while ((lines = userReader.readLine()) != null) {
-                    tempDB.append(lines).append(System.lineSeparator());
+                    tempDB.append(lines);
                 }
             }
 
